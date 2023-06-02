@@ -1,18 +1,20 @@
 from flask import Flask, request, jsonify
-
-
-import skfuzzy as fuzz
-from skfuzzy import control as ctrl
-
-
+from flask_cors import CORS
+import logging
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from skfuzzy import control as ctrl
 import skfuzzy as fuzz
 
-
 app = Flask(__name__)
+
+# CORS
+CORS(app)
+
+# Logging
+logging.basicConfig(level=logging.INFO)
+logging.getLogger('flask_cors').level = logging.DEBUG
 
 #===============================================================================================================================================#
 
@@ -21,7 +23,7 @@ app = Flask(__name__)
 soil_water_content = ctrl.Antecedent(np.arange(0, 40, 0.1), 'soil_water_content')
 
 # sun_radiation from 0 to 12
-sunshine_hour = ctrl.Antecedent(np.arange(0, 12, 0,1), 'sunshine_hour')
+sunshine_hour = ctrl.Antecedent(np.arange(0, 12, 0.1), 'sunshine_hour')
 
 # delta_evaporation from 0 to 6 mm
 delta_evaporation = ctrl.Antecedent(
